@@ -9,7 +9,7 @@
 
 Use this module to provision an [IBM Cloud Red Hat OpenShift cluster](https://cloud.ibm.com/docs/openshift?topic=openshift-getting-started) on VPC Gen2. The module either creates the required Cloud Object Storage instance or uses an existing instance. The module also supports optionally passing a key management configuration for secret encryption and boot volume encryption.
 
-Optionally, the module supports advanced security group management for the worker nodes, VPE, and load balancer associated with the cluster. This feature allows you to configure security groups for the cluster's worker nodes, VPE, and load balancer.
+Optionally, the module supports advanced security group management for the worker nodes, VPE, and load balancer associated with the cluster. This feature enables you to configure security groups for the worker nodes, VPE, and load balancer of the cluster.
 
 ### Before you begin
 
@@ -19,18 +19,18 @@ Optionally, the module supports advanced security group management for the worke
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-base-ocp-vpc](#terraform-ibm-base-ocp-vpc)
-* [Submodules](./modules)
-    * [fscloud](./modules/fscloud)
-* [Examples](./examples)
-    * [2 MZR clusters in same VPC example](./examples/multiple_mzr_clusters)
-    * [Advanced example (mzr, auto-scale, kms, taints)](./examples/advanced)
-    * [Attaching custom security groups](./examples/custom_sg)
-    * [Basic single zone example](./examples/basic)
-    * [Cluster security group rules example](./examples/add_rules_to_sg)
-    * [Cross account KMS encryption example](./examples/cross_kms_support)
-    * [Financial Services compliant example](./examples/fscloud)
-* [Contributing](#contributing)
+- [terraform-ibm-base-ocp-vpc](#terraform-ibm-base-ocp-vpc)
+- [Submodules](./modules)
+  - [fscloud](./modules/fscloud)
+- [Examples](./examples)
+  - [2 MZR clusters in same VPC example](./examples/multiple_mzr_clusters)
+  - [Advanced example (mzr, auto-scale, kms, taints)](./examples/advanced)
+  - [Attaching custom security groups](./examples/custom_sg)
+  - [Basic single zone example](./examples/basic)
+  - [Cluster security group rules example](./examples/add_rules_to_sg)
+  - [Cross account KMS encryption example](./examples/cross_kms_support)
+  - [Financial Services compliant example](./examples/fscloud)
+- [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
 <!-- This heading should always match the name of the root level module (aka the repo name) -->
@@ -107,13 +107,13 @@ module "ocp_base" {
 
 ### Advanced security group options
 
-The Terraform module provides options to attach additional security groups to the worker nodes, VPE, and load balancer associated with the cluster.
+The Terraform module provides options to attach additional security groups to the worker nodes, VPC, and load balancer associated with the cluster.
 
 The [custom_sg example](./examples/custom_sg/) demonstrates how to use these capabilities.
 
-See the IBM Cloud documentation on this topic [here](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-security-group&interface=ui)
+See the IBM Cloud documentation on this topic [here](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-security-group&interface=ui).
 
-Tip: The [terraform-ibm-security-groups](https://github.com/terraform-ibm-modules/terraform-ibm-security-group) module can be used to create security groups and rules.
+Tip: The [terraform-ibm-security-groups](https://github.com/terraform-ibm-modules/terraform-ibm-security-group) module can be used to create security groups and rules. For more information, see the [Terraform IBM Security Groups](https://github.com/terraform-ibm-modules/terraform-ibm-security-group) page.
 
 #### Worker nodes
 
@@ -134,11 +134,13 @@ In all cases, note that:
 
 #### Load balancers
 
-- The IBM Cloud OCP stack manages the lifecycle of VPC Loadbalancers for your cluster. See the _LoadBalancer_ section in the [Understanding options for exposing apps](https://cloud.ibm.com/docs/openshift?topic=openshift-cs_network_planning).
+- The IBM Cloud OCP stack manages the lifecycle of VPC load balancers for your cluster. See the _LoadBalancer_ section in the [Understanding options for exposing apps](https://cloud.ibm.com/docs/openshift?topic=openshift-cs_network_planning).
 - By default, one load balancer is created at cluster creation for the default cluster ingress.
-- You can attach additional security groups using the `additional_lb_security_group_ids` variable. This set of security groups is attached to all loadbalancers managed by the cluster.
+- You can attach additional security groups using the `additional_lb_security_group_ids` variable. This set of security groups is attached to all load balancers managed by the cluster.
 - **Important**: If additional load balancers are added after creating the cluster, for example, by exposing a Kubernetes service of type LoadBalancer, update the `number_of_lbs` variable and re-run this module to attach the extra security groups to the newly created load balancer.
 - The default IBM-managed security group is attached to the LBs in all cases.
+
+Text:<startoftext>
 
 ### Troubleshooting
 
@@ -158,7 +160,7 @@ In all cases, note that:
 
 ### Required IAM access policies
 
-You need the following permissions to run this module.
+You need the following permissions to run this module:
 
 - Account Management
   - **All Identity and Access Enabled** service
@@ -176,7 +178,7 @@ You need the following permissions to run this module.
     - `Administrator` platform access
     - `Manager` service access
 
-Optionally, you need the following permissions to attach Access Management tags to resources in this module.
+Optionally, you need the following permissions to attach Access Management tags to resources in this module:
 
 - IAM Services
   - **Tagging** service
@@ -184,7 +186,7 @@ Optionally, you need the following permissions to attach Access Management tags 
 
 ### Note
 
-- One worker pool should always be named as `default`. Refer [issue 2849](https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849) for further details.
+- One worker pool should always be named as `default`. Refer to [issue 2849](https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849) for further details.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
@@ -231,10 +233,10 @@ Optionally, you need the following permissions to attach Access Management tags 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_access_tags"></a> [access\_tags](#input\_access\_tags) | A list of access tags to apply to the resources created by the module, see https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial for more details | `list(string)` | `[]` | no |
+| <a name="input_access_tags"></a> [access\_tags](#input\_access\_tags) | A list of access tags to apply to the resources created by the module, see <https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial> for more details | `list(string)` | `[]` | no |
 | <a name="input_additional_lb_security_group_ids"></a> [additional\_lb\_security\_group\_ids](#input\_additional\_lb\_security\_group\_ids) | Additional security groups to add to the load balancers associated with the cluster. Ensure that the number\_of\_lbs is set to the number of LBs associated with the cluster. This comes in addition to the IBM maintained security group. | `list(string)` | `[]` | no |
 | <a name="input_additional_vpe_security_group_ids"></a> [additional\_vpe\_security\_group\_ids](#input\_additional\_vpe\_security\_group\_ids) | Additional security groups to add to all existing load balancers. This comes in addition to the IBM maintained security group. | <pre>object({<br>    master   = optional(list(string), [])<br>    registry = optional(list(string), [])<br>    api      = optional(list(string), [])<br>  })</pre> | `{}` | no |
-| <a name="input_addons"></a> [addons](#input\_addons) | Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions | <pre>object({<br>    debug-tool                = optional(string)<br>    image-key-synchronizer    = optional(string)<br>    openshift-data-foundation = optional(string)<br>    vpc-file-csi-driver       = optional(string)<br>    static-route              = optional(string)<br>    cluster-autoscaler        = optional(string)<br>    vpc-block-csi-driver      = optional(string)<br>  })</pre> | `null` | no |
+| <a name="input_addons"></a> [addons](#input\_addons) | Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see <https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions> | <pre>object({<br>    debug-tool                = optional(string)<br>    image-key-synchronizer    = optional(string)<br>    openshift-data-foundation = optional(string)<br>    vpc-file-csi-driver       = optional(string)<br>    static-route              = optional(string)<br>    cluster-autoscaler        = optional(string)<br>    vpc-block-csi-driver      = optional(string)<br>  })</pre> | `null` | no |
 | <a name="input_attach_ibm_managed_security_group"></a> [attach\_ibm\_managed\_security\_group](#input\_attach\_ibm\_managed\_security\_group) | Specify whether to attach the IBM-defined default security group (whose name is kube-<clusterid>) to all worker nodes. Only applicable if custom\_security\_group\_ids is set. | `bool` | `true` | no |
 | <a name="input_cluster_config_endpoint_type"></a> [cluster\_config\_endpoint\_type](#input\_cluster\_config\_endpoint\_type) | Specify which type of endpoint to use for for cluster config access: 'default', 'private', 'vpe', 'link'. 'default' value will use the default endpoint of the cluster. | `string` | `"default"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name that will be assigned to the provisioned cluster | `string` | n/a | yes |
